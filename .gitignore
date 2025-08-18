@@ -5,7 +5,6 @@
 crash.log
 override.tf
 override.tf.json
-.terraform.lock.hcl
 
 # Local configuration files
 *.tfvars
