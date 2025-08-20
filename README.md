@@ -47,10 +47,12 @@ Ensure your AWS CLI is configured with the appropriate credentials and profile. 
 You can set the AWS_PROFILE environment variable for convenience:
 ```
 # On Linux/macOS
+export AWS_SHARED_CREDENTIALS_FILE=~/.aws/creds
 export AWS_PROFILE=vscode
 
-# On Windows
-set AWS_PROFILE=vscode
+# On Windows(powershell)
+$env:AWS_SHARED_CREDENTIALS_FILE="C:\Users\USER_NAME_TO_REPLACE\.aws\credentials"
+$env:AWS_PROFILE="vscode"
 ```
 
 #### 3. Initialize Terraform
