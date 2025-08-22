@@ -104,4 +104,5 @@ aws
 
 ---
 
-## TODO
+## Notes
+In Datasource the owner id you can find it under the AWS console->EC2->Images->AMIs by finding the ami id as public images. e.g. you can open create ec2 page and check AMI ID for Linux, then copy AMI id to find the public image with owner id.

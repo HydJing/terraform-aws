@@ -26,3 +26,43 @@ resource "aws_internet_gateway" "terraform_test_internet_gateway" {
     Name = "dev-igw"
   }
 }
+
+resource "aws_route_table" "terraform_test_public_rt" {
+  vpc_id = aws_vpc.terraform_test_vpc.id
+
+  tags = {
+    Name = "dev-public_rt"
+  }
+}
+
+resource "aws_route" "default_route" {
+  route_table_id         = aws_route_table.terraform_test_public_rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.terraform_test_internet_gateway.id
+
+}
+
+resource "aws_route_table_association" "terraform_test_public_assoc" {
+  subnet_id      = aws_subnet.terraform_test_subnet.id
+  route_table_id = aws_route_table.terraform_test_public_rt.id
+}
+
+resource "aws_security_group" "terraform_test_sg" {
+  name        = "dev_sg"
+  description = "dev security group"
+  vpc_id      = aws_vpc.terraform_test_vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"] # change to your allowed IP
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
