@@ -66,3 +66,8 @@ resource "aws_security_group" "terraform_test_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "terraform_test_auth" {
+  key_name   = "terraform_aws"
+  public_key = file("~/.ssh/terraform_aws.pub")
+}
