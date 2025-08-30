@@ -71,3 +71,20 @@ resource "aws_key_pair" "terraform_test_auth" {
   key_name   = "terraform_aws"
   public_key = file("~/.ssh/terraform_aws.pub")
 }
+
+resource "aws_instsance" "dev_node" {
+  instance_type = "t2.micro"
+  ami           = data.aws_ami.server_ami.id
+
+  tags = {
+    Name = "dev-node"
+  }
+
+  key_name               = aws_key_pair.terraform_test_auth.key_name
+  vpc_security_group_ids = [aws_security_group.terraform_test_sg.id]
+  subnet_id              = aws_subnet.terraform_test_subnet.id
+
+  root_block_device {
+    volume_size = 10
+  }
+}
